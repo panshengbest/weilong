@@ -1,15 +1,47 @@
-name: Manual Workflow
+name: Check in on website
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'  # 每天 UTC 时间 5:00 运行
+  workflow_dispatch:  # 添加手动触发事件
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      RUNNER_TOOL_CACHE: /opt/hostedtoolcache
+      NODE_VERSION: 16.x
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.5.2
 
-      - name: Print message
-        run: echo "Hello, world!"
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install helium
+          pip install -r requirements.txt
+
+      - name: Check in on website
+        run: |
+          python caih.py
+
+      - name: Set output
+        run: |
+          echo "::set-output name=done::true"
+        shell: bash
+        id: check_in
+
+      - name: Upload results
+        if: steps.check_in.outputs.done == 'true'
+        uses: actions/upload-artifact@v2
+        with:
+          name: check-in-results
+          path: result.txt

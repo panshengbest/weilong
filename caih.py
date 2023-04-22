@@ -2,39 +2,39 @@ from helium import *
 import time
 
 def check_in(username, password):
-    # ´ò¿ªÍøÒ³
+    # æ‰“å¼€ç½‘ é¡µ
     start_chrome('https://720ccl88.emy163.cn/user/login.php')
 
-    # µÈ´ıÒ³Ãæ¼ÓÔØ
-    wait_until(Text('Á¢¼´µÇÂ½').exists)
+    # ç­‰å¾…é¡µé¢åŠ è½½
+    wait_until(Text('ç«‹å³ç™»é™†').exists)
 
-    # ÊäÈëÓÃ»§ÃûºÍÃÜÂë
-    write(username, into=TextField('ÓÃ»§Ãû'))
-    write(password, into=TextField('ÃÜÂë'))
+    # è¾“å…¥ç”¨æˆ·åå’Œå¯†ç 
+    write(username, into=TextField('ç”¨æˆ·å'))
+    write(password, into=TextField('å¯†ç '))
 
-    # µã»÷µÇÂ¼°´Å¥
-    click(Button('Á¢¼´µÇÂ½'))
+    # ç‚¹å‡»ç™»å½•æŒ‰é’®
+    click(Button('ç«‹å³ç™»é™†'))
 
-    # µÈ´ıÒ³Ãæ¼ÓÔØ
-    wait_until(Text('ÏµÍ³¹ÜÀíÖĞĞÄ').exists)
+    # ç­‰å¾…é¡µé¢åŠ è½½
+    wait_until(Text('ç³»ç»Ÿç®¡ç†ä¸­å¿ƒ').exists)
 
-    # µã»÷Ç©µ½°´Å¥
-    click(Text('Ã¿ÈÕÇ©µ½'))
-    wait_until(Text('×Ü½±Àø').exists)
+    # ç‚¹å‡»ç­¾åˆ°æŒ‰é’®
+    click(Text('æ¯æ—¥ç­¾åˆ°'))
+    wait_until(Text('æ€»å¥–åŠ±').exists)
     click(S('#qiandao'))
 
-    # µÈ´ıÇ©µ½³É¹¦ÌáÊ¾³öÏÖ
-    wait_until(Text('Ç©µ½³É¹¦').exists)
+    # ç­‰å¾…ç­¾åˆ°æˆåŠŸæç¤ºå‡ºç°
+    wait_until(Text('ç­¾åˆ°æˆåŠŸ').exists)
 
-    # ¹Ø±Õä¯ÀÀÆ÷±êÇ©Ò³
+    # å…³é—­æµè§ˆå™¨æ ‡ç­¾é¡µ
     kill_browser()
 
-# ¶ÁÈ¡ÕËºÅÃÜÂëÎÄ¼ş
+# è¯»å–è´¦å·å¯†ç æ–‡ä»¶
 with open('accounts.txt', 'r') as f:
     accounts = f.readlines()
 
-# Ñ­»·µ÷ÓÃÇ©µ½º¯Êı
+# å¾ªç¯è°ƒç”¨ç­¾åˆ°å‡½æ•°
 for account in accounts:
     username, password = account.strip().split(',')
     check_in(username, password)
-    time.sleep(5) # Ã¿´ÎÇ©µ½Ö®¼äÔİÍ£5Ãë
+    time.sleep(5) # æ¯æ¬¡ç­¾åˆ°ä¹‹é—´æš‚åœ5ç§’

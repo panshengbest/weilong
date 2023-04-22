@@ -1,24 +1,45 @@
-name: Check-in
+name: Check in on website
 
 on:
   schedule:
-    - cron: '0 16 * * *'  # 每天UTC时间0点（即北京时间5点）触发
+    - cron: '0 5 * * *'  # 每天 UTC 时间 5:00 运行
 
 jobs:
-  check-in:
+  build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      RUNNER_TOOL_CACHE: /opt/hostedtoolcache
+      NODE_VERSION: 16.x
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'  # 指定Python版本
-    - name: Install dependencies
-      run: pip install helium  # 安装依赖
-    - name: Run check-in script
-      run: |
-        python caih.py  # 运行签到脚本
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        ACCOUNTS_PATH: accounts.txt  # 账号密码文件路径
+      - name: Checkout repository
+        uses: actions/checkout@v2.5.2
+
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install helium
+
+      - name: Check in on website
+        run: |
+          python caih.py
+
+      - name: Set output
+        run: |
+          echo "::set-output name=done::true"
+        id: check_in
+
+      - name: Upload results
+        if: steps.check_in.outputs.done == 'true'
+        uses: actions/upload-artifact@v2
+        with:
+          name: check-in-results
+          path: result.txt

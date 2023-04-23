@@ -38,6 +38,10 @@ jobs:
           echo "::set-output name=done::true"
         shell: bash
         id: check_in
+        
+      - name: Check tool cache directory
+        run: ls /opt/hostedtoolcache
+
 
       - name: Upload results
         if: steps.check_in.outputs.done == 'true'

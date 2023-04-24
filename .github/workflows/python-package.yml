@@ -21,14 +21,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Chrome and ChromeDriver
-      run: |
-        $latest_chromedriver_version = (Invoke-WebRequest -UseBasicParsing -Uri "https://chromedriver.storage.googleapis.com/LATEST_RELEASE").Content.Trim()
-        Invoke-WebRequest -UseBasicParsing -Uri "https://dl.google.com/chrome/install/standalone/enterprise/GoogleChromeEnterprise.msi" -OutFile "chrome.msi"
-        Start-Process msiexec.exe -ArgumentList "/i chrome.msi /quiet /qn /norestart /log install.log" -Wait
-        Invoke-WebRequest -UseBasicParsing -Uri "https://chromedriver.storage.googleapis.com/$latest_chromedriver_version/chromedriver_win32.zip" -OutFile "chromedriver_win32.zip"
-        Expand-Archive -Path chromedriver_win32.zip -DestinationPath .
-        Move-Item -Path .\chromedriver.exe -Destination C:\Windows\System32\chromedriver.exe
+    - uses: browser-actions/setup-chrome@v1
+    - run: chrome --version
 
     - name: Install dependencies
       run: |

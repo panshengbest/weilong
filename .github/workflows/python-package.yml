@@ -37,7 +37,9 @@ jobs:
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
-        sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+        #sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/chromedriver
+        sudo cp ~/chromedriver /usr/bin/chromedriver -f
+
 
     - name: Run caih.py
       run: |

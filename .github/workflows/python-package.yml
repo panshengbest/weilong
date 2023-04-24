@@ -8,29 +8,27 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.10"]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
 
     - name: Install Chrome and ChromeDriver
       run: |
-        LATEST_CHROMEDRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        curl -sS -O "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-        sudo apt-get -y install ./google-chrome-stable_current_amd64.deb
-        curl -sS -O "https://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER_VERSION/chromedriver_linux64.zip"
-        unzip chromedriver_linux64.zip && rm chromedriver_linux64.zip
-        chmod +x chromedriver && sudo mv chromedriver /usr/local/bin/
-
+        $latest_chromedriver_version = (Invoke-WebRequest -UseBasicParsing -Uri "https://chromedriver.storage.googleapis.com/LATEST_RELEASE").Content.Trim()
+        Invoke-WebRequest -UseBasicParsing -Uri "https://dl.google.com/chrome/install/standalone/enterprise/GoogleChromeEnterprise.msi" -OutFile "chrome.msi"
+        Start-Process msiexec.exe -ArgumentList "/i chrome.msi /quiet /qn /norestart /log install.log" -Wait
+        Invoke-WebRequest -UseBasicParsing -Uri "https://chromedriver.storage.googleapis.com/$latest_chromedriver_version/chromedriver_win32.zip" -OutFile "chromedriver_win32.zip"
+        Expand-Archive -Path chromedriver_win32.zip -DestinationPath .
+        Move-Item -Path .\chromedriver.exe -Destination C:\Windows\System32\chromedriver.exe
 
     - name: Install dependencies
       run: |

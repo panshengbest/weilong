@@ -22,7 +22,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Prepare chromedriver
-      uses: nanasess/setup-chromedriver@v3
+      uses: nanasess/setup-chromedriver@v2
 
     - name: Install dependencies
       run: |

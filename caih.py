@@ -6,7 +6,8 @@ def check_in(username, password):
     start_chrome('https://720ccl88.emy163.cn/user/login.php')
 
     # 等待页面加载
-    wait_until(Text('立即登陆').exists)
+    #wait_until(Text('立即登陆').exists)
+    time.sleep(15)
 
     # 输入用户名和密码
     write(username, into=TextField('用户名'))
@@ -16,15 +17,18 @@ def check_in(username, password):
     click(Button('立即登陆'))
 
     # 等待页面加载
-    wait_until(Text('系统管理中心').exists)
+    #wait_until(Text('系统管理中心').exists)
+    time.sleep(15)
 
     # 点击签到按钮
     click(Text('每日签到'))
-    wait_until(Text('总奖励').exists)
+    #wait_until(Text('总奖励').exists)
+    time.sleep(15)
     click(S('#qiandao'))
 
     # 等待签到成功提示出现
-    wait_until(Text('签到成功').exists)
+    #wait_until(Text('签到成功').exists)
+    time.sleep(15)
 
     # 关闭浏览器标签页
     kill_browser()

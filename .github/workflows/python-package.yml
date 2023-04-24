@@ -22,13 +22,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install Chrome
-      uses: nanasess/setup-google-chrome@v1
-
-    - name: Install ChromeDriver
-      uses: nanasess/setup-chromedriver@v1
-      with:
-        chrome-version: "latest"
+    - name: Set up Chrome
+      uses: MaximVerhagen/setup-chrome@v0.1.1
 
 
     - name: Install dependencies

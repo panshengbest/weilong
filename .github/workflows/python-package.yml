@@ -30,8 +30,9 @@ jobs:
         python -m pip install helium
         
         
-    - name: Print IP Address
-      run: echo $env:GITHUB_EVENT_CLIENT_IP
+    - name: Show IP address
+      run: echo "${{github.event.client_ip}}"
+
 
 
     - name: Run caih.py

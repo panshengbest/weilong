@@ -29,6 +29,10 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install helium
 
+    - name: Get IP address
+      run: echo ${{ github.event.client_ip }}
+
+
     - name: Run caih.py
       run: |
         python caih.py

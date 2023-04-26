@@ -33,12 +33,19 @@ jobs:
         python -m pip install webdriver_manager
         python -m pip install helium
 
-    - name: Install chromedriver
+    - name: Install Chocolatey
       run: |
-        python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
+        Set-ExecutionPolicy Bypass -Scope Process -Force
+        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072 #TLS 1.2
+        iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
         
-    - name: Print Chrome version
-      run: google-chrome --version
+    - name: Install Chrome and ChromeDriver
+      run: |
+        choco install googlechrome chromedriver -y
+
+    - name: Check ChromeDriver version
+      run: chromedriver --version
+
 
 
     - name: Run caih.py

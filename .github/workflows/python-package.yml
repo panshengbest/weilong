@@ -32,6 +32,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install webdriver_manager
         python -m pip install helium
+        python -m pip install selenium
 
     - name: Install Chocolatey
       run: |
@@ -48,6 +49,6 @@ jobs:
 
 
 
-    - name: Run caih.py
+    - name: Run moyupai.py
       run: |
-        python caih.py
+        python moyupai.py

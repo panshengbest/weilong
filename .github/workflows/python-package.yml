@@ -37,8 +37,9 @@ jobs:
       run: |
         python -c "from webdriver_manager.chrome import ChromeDriverManager; ChromeDriverManager().install()"
         
-    - name: Show IP address
-      run: echo "${{github.event.client_ip}}"
+    - name: Print Chrome version
+      run: google-chrome --version
+
 
     - name: Run caih.py
       run: |

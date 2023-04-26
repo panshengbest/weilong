@@ -2,6 +2,7 @@ from helium import *
 import time
 
 def check_in(username, password):
+    try:
     # 打开网 页
     start_chrome('https://720ccl88.emy163.cn/user/login.php')
 
@@ -32,6 +33,8 @@ def check_in(username, password):
 
     # 关闭浏览器标签页
     kill_browser()
+except Exception as e:
+    print("错求了:", e)
 
 # 读取账号密码文件
 with open('accounts.txt', 'r') as f:

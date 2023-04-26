@@ -10,7 +10,7 @@ def check_in(username, password):
     time.sleep(15)
 
     # 输入用户名和密码
-    write(username, into=TextField('用户名'))
+    write(username, into=TextField('\u7528\u6237\u540d'))
     write(password, into=TextField('密码'))
 
     # 点击登录按钮

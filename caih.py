@@ -7,7 +7,7 @@ def check_in(username, password):
          start_chrome('https://720ccl88.emy163.cn/user/login.php')
 
          # 等待页面加载
-         #wait_until(Text('立即登陆').exists)
+         wait_until(Text('立即登陆').exists)
          time.sleep(15)
 
          # 输入用户名和密码

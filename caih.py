@@ -11,7 +11,7 @@ def check_in(username, password):
          time.sleep(15)
 
          # 输入用户名和密码
-         write('username',S('/html/body/div[1]/div/div[2]/form/div[1]/input'))
+         write('username',S('/html/body/div/div/div[2]/form/div[1]/input'))
          write(password, into=TextField('密码'))
 
          # 点击登录按钮

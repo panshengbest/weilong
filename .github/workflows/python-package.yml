@@ -49,6 +49,6 @@ jobs:
 
 
 
-    - name: Run moyupai.py
+    - name: Run caih.py
       run: |
-        python moyupai.py
+        python caih.py
